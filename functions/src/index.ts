@@ -13,7 +13,7 @@ const {
     getAllCharacters,
     getCharacterByID,
     createCharacter } = require('./handlers/characters');
-
+const { firebaseAuth } = require('./util/firebaseAuth');
 //User Routes
 app.post('/login', login);
 app.post('/signup', signup);
@@ -22,6 +22,6 @@ app.post('/signup', signup);
 //Character Routes
 app.get('/characters', getAllCharacters);
 app.get('/characters/:id', getCharacterByID);
-app.post('/characters', createCharacter);
+app.post('/characters', firebaseAuth, createCharacter);
 
 exports.api = functions.https.onRequest(app);

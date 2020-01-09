@@ -85,10 +85,14 @@ const login = (request: any, response: any) => {
             return response.json({ token })
         })
         .catch((err) => {
-            console.error(err);
+            if (err.code === "auth/wrong-password") {
+                response
+                    .status(403)
+                    .json({ general: "Invalid Credentials" })
+            }
             return response
-                .status(403)
-                .json({ general: "Invalid credentials" })
+                .status(500)
+                .json({ error: err.code })
         });
 };
 
