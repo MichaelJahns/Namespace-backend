@@ -2,6 +2,8 @@ import * as functions from 'firebase-functions';
 import * as express from 'express'
 
 const app = express();
+require('dotenv').config();
+
 
 // Import Handlers
 const { signup } = require('./handlers/users');
