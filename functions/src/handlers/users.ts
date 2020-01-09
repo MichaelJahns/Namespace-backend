@@ -12,7 +12,7 @@ const signup = (request: any, response: any) => {
 
     const { valid, errors } = validator.validateSignupData(newUser);
 
-    if (!valid) return response.status(500).json(errors);
+    if (!valid) return response.status(400).json(errors);
     let token: string, userId: string;
 
     database
@@ -63,4 +63,33 @@ const signup = (request: any, response: any) => {
         });
 };
 
-export { signup };
+const login = (request: any, response: any) => {
+    const user = {
+        email: request.body.email,
+        password: request.body.password
+    }
+
+    const { valid, errors } = validator.validateLoginData(user);
+
+    if (!valid) return response
+        .status(400)
+        .json(errors);
+
+    firebase
+        .auth()
+        .signInWithEmailAndPassword(user.email, user.password)
+        .then((data: any) => {
+            return data.user.getIdToken();
+        })
+        .then((token) => {
+            return response.json({ token })
+        })
+        .catch((err) => {
+            console.error(err);
+            return response
+                .status(403)
+                .json({ general: "Invalid credentials" })
+        });
+};
+
+export { signup, login };

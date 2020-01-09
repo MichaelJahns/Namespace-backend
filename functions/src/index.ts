@@ -6,19 +6,18 @@ require('dotenv').config();
 
 
 // Import Handlers
-const { signup } = require('./handlers/users');
+const {
+    signup,
+    login } = require('./handlers/users');
 const {
     getAllCharacters,
     getCharacterByID,
     createCharacter } = require('./handlers/characters');
 
-
-
 //User Routes
+app.post('/login', login);
 app.post('/signup', signup);
-app.get('/signup', (request, response) => {
-    return response.json("I exist");
-})
+
 
 //Character Routes
 app.get('/characters', getAllCharacters);
