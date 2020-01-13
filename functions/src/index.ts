@@ -3,7 +3,7 @@ import * as express from 'express'
 
 const app = express();
 require('dotenv').config();
-
+const { firebaseAuth } = require('./util/firebaseAuth');
 
 // Import Handlers
 const {
@@ -13,7 +13,6 @@ const {
     getAllCharacters,
     getCharacterByID,
     createCharacter } = require('./handlers/characters');
-const { firebaseAuth } = require('./util/firebaseAuth');
 //User Routes
 app.post('/login', login);
 app.post('/signup', signup);
