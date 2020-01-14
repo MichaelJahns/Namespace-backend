@@ -1,14 +1,18 @@
 export interface User {
+    email: string;
+    password: string;
+}
+
+export interface NewUser {
     // Required
     email: string;
-    displayName: string;
     password: string;
+    displayName: string;
     confirmPassword: string;
-    // Optional
 }
 
 // There can be all or none of these expected NewUserErrors
-export interface NewUserErrors {
+export interface UserErrors {
     email?: string;
     displayName?: string;
     password?: string;

@@ -1,1 +1,0 @@
-export function validateSignupData(data: User): NewUserErrors;
