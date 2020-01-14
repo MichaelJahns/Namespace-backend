@@ -2,6 +2,7 @@ import { database } from '../util/admin';
 import * as firebase from 'firebase';
 import validator = require("../util/validators");
 
+// Works
 const signup = (request: any, response: any) => {
     const newUser = {
         email: request.body.email,
@@ -63,6 +64,7 @@ const signup = (request: any, response: any) => {
         });
 };
 
+// Works
 const login = (request: any, response: any) => {
     const user = {
         email: request.body.email,

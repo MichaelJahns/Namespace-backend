@@ -1,5 +1,6 @@
 import { database } from '../util/admin';
 
+// Works
 const getAllCharacters = (request: any, response: any) => {
     database
         .collection("characters")

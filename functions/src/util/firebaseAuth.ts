@@ -1,4 +1,4 @@
-const { admin, database } = require('./admin');
+const { admin, firebase, database } = require('./admin');
 
 const firebaseAuth = (request: any, response: any, next: any) => {
     let idToken;
@@ -12,7 +12,6 @@ const firebaseAuth = (request: any, response: any, next: any) => {
     }
 
     admin
-        .auth()
         .verifyIdToken(idToken)
         .then((decodedToken: any) => {
             request.user = decodedToken;
