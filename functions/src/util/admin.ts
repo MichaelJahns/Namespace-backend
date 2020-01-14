@@ -2,6 +2,11 @@ import * as firebase from 'firebase';
 const functions = require('firebase-functions');
 const admin = require('firebase-admin');
 
+admin.initializeApp({
+    credential: admin.credential.applicationDefault(),
+    databaseURL: functions.config().namespace.database_url
+});
+
 const firebaseConfig = {
     apiKey: functions.config().namespace.key,
     authDomain: functions.config().namespace.auth_domain,

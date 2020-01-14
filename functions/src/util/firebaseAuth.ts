@@ -1,4 +1,4 @@
-const { admin, firebase, database } = require('./admin');
+const { admin, database } = require('./admin');
 
 const firebaseAuth = (request: any, response: any, next: any) => {
     let idToken;
@@ -12,6 +12,7 @@ const firebaseAuth = (request: any, response: any, next: any) => {
     }
 
     admin
+        .auth()
         .verifyIdToken(idToken)
         .then((decodedToken: any) => {
             request.user = decodedToken;
@@ -23,6 +24,7 @@ const firebaseAuth = (request: any, response: any, next: any) => {
         })
         .then((data: any) => {
             request.user.displayName = data.docs[0].data().displayName;
+            console.log("User Authenticated");
             return next();
         })
         .catch((err: any) => {

@@ -41,10 +41,16 @@ const createCharacter = (request: any, response: any) => {
         name: request.body.name,
         title: request.body.title
     }
+    console.log("Create character route hit");
+    console.log(newCharacter);
     database
-        .collection("characters")
-        .doc()
-        .set({ newCharacter })
+        .collection("tester")
+        .add(newCharacter)
+        .then((docRef) => {
+            return response
+                .status(201)
+                .json({ id: docRef.id });
+        })
         .catch(function (error) {
             console.error("Error adding document: ", error);
         });
