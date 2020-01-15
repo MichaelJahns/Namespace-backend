@@ -1,6 +1,6 @@
 import { database } from '../util/admin';
 import * as firebase from 'firebase';
-import { validateSignupData } from '../util/validators';
+import { validateSignupData, validateLoginData } from '../util/validators';
 
 // Works
 const signup = (request: any, response: any) => {
@@ -71,7 +71,7 @@ const login = (request: any, response: any) => {
         password: request.body.password
     }
 
-    const { valid, errors } = validator.validateLoginData(user);
+    const { valid, errors } = validateLoginData(user);
 
     if (!valid) return response
         .status(400)
