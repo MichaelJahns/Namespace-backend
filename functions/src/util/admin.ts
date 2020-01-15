@@ -1,7 +1,6 @@
 import * as firebase from 'firebase';
-const admin = require('firebase-admin');
-const firebaseConfig = require('./config');
-
+import * as admin from 'firebase-admin';
+import { firebaseConfig } from './config';
 
 admin.initializeApp({
     credential: admin.credential.applicationDefault(),

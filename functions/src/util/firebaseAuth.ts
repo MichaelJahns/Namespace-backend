@@ -1,4 +1,4 @@
-const { admin, database } = require('./admin');
+import { admin, database } from './admin';
 
 const firebaseAuth = (request: any, response: any, next: any) => {
     let idToken;

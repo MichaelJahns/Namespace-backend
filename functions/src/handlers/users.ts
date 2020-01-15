@@ -1,6 +1,6 @@
 import { database } from '../util/admin';
 import * as firebase from 'firebase';
-import validator = require("../util/validators");
+import { validateSignupData } from '../util/validators';
 
 // Works
 const signup = (request: any, response: any) => {
@@ -11,7 +11,7 @@ const signup = (request: any, response: any) => {
         displayName: request.body.displayName
     };
 
-    const { valid, errors } = validator.validateSignupData(newUser);
+    const { valid, errors } = validateSignupData(newUser);
 
     if (!valid) return response.status(400).json(errors);
     let token: string, userId: string;
