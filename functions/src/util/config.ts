@@ -1,4 +1,4 @@
-const functions = require('firebase-functions');
+import * as functions from 'firebase-functions'
 const firebaseConfig = {
     apiKey: functions.config().namespace.key,
     authDomain: functions.config().namespace.auth_domain,
