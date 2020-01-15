@@ -64,6 +64,7 @@ const deleteCharacter = (request: any, response: any) => {
             console.log("Document successfully deleted!");
             return response
                 .status(201)
+                .json({ success: `Deleted character with id ${characterID}` })
         }).catch((error) => {
             console.error("Error removing document: ", error);
             return response
