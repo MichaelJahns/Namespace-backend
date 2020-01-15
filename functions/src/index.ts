@@ -23,7 +23,7 @@ app.post('/signup', signup);
 
 //Character Routes
 app.get('/characters', getAllCharacters);
-app.get('/characters/id', getCharacterByID);
+app.get('/characters/byID', getCharacterByID);
 app.post('/characters', firebaseAuth, createCharacter);
 app.delete('/characters', firebaseAuth, deleteCharacter);
 

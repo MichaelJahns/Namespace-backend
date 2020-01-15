@@ -1,6 +1,9 @@
 import { database } from '../util/admin';
-import * as firebase from 'firebase';
 import { validateSignupData, validateLoginData } from '../util/validators';
+
+import * as firebase from 'firebase';
+import { firebaseConfig } from '../util/config';
+firebase.initializeApp(firebaseConfig);
 
 // Works
 const signup = (request: any, response: any) => {

@@ -24,14 +24,20 @@ const getAllCharacters = (request: any, response: any) => {
 
 const getCharacterByID = (request: any, response: any) => {
     const characterID = request.body.characterID;
+    console.log(characterID);
     database
         .collection("characters")
         .where("id", "==", characterID)
         .get()
-        .then((data) => {
-            response
-                .status(200)
-                .json({ data })
+        .then((querySnapshot: any) => {
+            const characters: any[] = []
+            querySnapshot.forEach((doc: any) => {
+                characters.push({
+                    characterID: doc.id,
+                    data: doc.data()
+                })
+            })
+            return response.json(characters);
         })
         .catch((err: any) => {
             response
