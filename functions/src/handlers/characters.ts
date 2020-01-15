@@ -66,6 +66,9 @@ const deleteCharacter = (request: any, response: any) => {
                 .status(201)
         }).catch((error) => {
             console.error("Error removing document: ", error);
+            return response
+                .status(500)
+                .json({ error: error.status })
         });
 }
 
