@@ -20,11 +20,12 @@ const { firebaseAuth } = require('./util/firebaseAuth');
 app.post('/login', login);
 app.post('/signup', signup);
 
+app.route('/characters')
+    .get(getAllCharacters)
+    .post(firebaseAuth, createCharacter)
+    .delete(firebaseAuth, deleteCharacter);
 
-//Character Routes
-app.get('/characters', getAllCharacters);
-app.get('/characters/byID', getCharacterByID);
-app.post('/characters', firebaseAuth, createCharacter);
-app.delete('/characters', firebaseAuth, deleteCharacter);
+
+app.get('/test', getCharacterByID);
 
 exports.api = functions.https.onRequest(app);

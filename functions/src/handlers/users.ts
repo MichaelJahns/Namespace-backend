@@ -1,6 +1,10 @@
 import { database } from '../util/admin';
 import { validateSignupData, validateLoginData } from '../util/validators';
 
+// It seems like every other deploy I get some sort of issue
+// where components populated by functions.config() are undefined
+// I am attempting to put it her in an attempt to minimize that 
+// behavior
 import * as firebase from 'firebase';
 import { firebaseConfig } from '../util/config';
 firebase.initializeApp(firebaseConfig);
