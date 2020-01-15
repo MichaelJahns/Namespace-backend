@@ -4,7 +4,7 @@ const admin = require('firebase-admin');
 
 admin.initializeApp({
     credential: admin.credential.applicationDefault(),
-    databaseURL: functions.config().namespace.database_url
+    databaseURL: "https://namespace-88d70.firebaseio.com"
 });
 
 const firebaseConfig = {

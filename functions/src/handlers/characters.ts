@@ -41,19 +41,32 @@ const createCharacter = (request: any, response: any) => {
         name: request.body.name,
         title: request.body.title
     }
-    console.log("Create character route hit");
-    console.log(newCharacter);
     database
-        .collection("tester")
+        .collection("characters")
         .add(newCharacter)
         .then((docRef) => {
             return response
                 .status(201)
                 .json({ id: docRef.id });
         })
-        .catch(function (error) {
+        .catch((error) => {
             console.error("Error adding document: ", error);
         });
 }
+const deleteCharacter = (request: any, response: any) => {
+    const characterID = request.body.characterID;
+    console.log(characterID);
+    database
+        .collection("characters")
+        .doc(characterID)
+        .delete()
+        .then(() => {
+            console.log("Document successfully deleted!");
+            return response
+                .status(201)
+        }).catch((error) => {
+            console.error("Error removing document: ", error);
+        });
+}
 
-export { getAllCharacters, getCharacterByID, createCharacter };
+export { getAllCharacters, getCharacterByID, createCharacter, deleteCharacter };
