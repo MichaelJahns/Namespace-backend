@@ -23,16 +23,21 @@ const getAllCharacters = (request: any, response: any) => {
 }
 
 const getCharacterByID = (request: any, response: any) => {
+    const characterID = request.body.characterID;
     database
         .collection("characters")
-        .where("id", "==", request.body.characterID)
+        .where("id", "==", characterID)
         .get()
         .then((data) => {
-            console.log(data);
+            response
+                .status(200)
+                .json({ data })
         })
         .catch((err: any) => {
-            console.error(err)
-            response.status(500)
+            response
+                .status(500)
+                .json({ error: err.code })
+
         })
 }
 
@@ -50,26 +55,25 @@ const createCharacter = (request: any, response: any) => {
                 .json({ id: docRef.id });
         })
         .catch((error) => {
-            console.error("Error adding document: ", error);
+            return response
+                .status(500)
+                .json({ error: error.code })
         });
 }
 const deleteCharacter = (request: any, response: any) => {
     const characterID = request.body.characterID;
-    console.log(characterID);
     database
         .collection("characters")
         .doc(characterID)
         .delete()
         .then(() => {
-            console.log("Document successfully deleted!");
             return response
                 .status(200)
                 .json({ delete: `character with id ${characterID} has been deleted` })
         }).catch((error) => {
-            console.error("Error removing document: ", error);
             return response
                 .status(500)
-                .json({ error: error.status })
+                .json({ error: error.code })
         });
 }
 
