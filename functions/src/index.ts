@@ -2,8 +2,6 @@ import * as functions from 'firebase-functions';
 import * as express from 'express'
 
 const app = express();
-require('dotenv').config();
-const { firebaseAuth } = require('./util/firebaseAuth');
 
 // Import Handlers
 const {
@@ -12,15 +10,20 @@ const {
 const {
     getAllCharacters,
     getCharacterByID,
-    createCharacter } = require('./handlers/characters');
+    createCharacter,
+    deleteCharacter } = require('./handlers/characters');
+const { firebaseAuth } = require('./util/firebaseAuth');
+
+
 //User Routes
 app.post('/login', login);
 app.post('/signup', signup);
 
+app.route('/characters')
+    .get(getAllCharacters)
+    .post(firebaseAuth, createCharacter)
+    .delete(firebaseAuth, deleteCharacter);
 
-//Character Routes
-app.get('/characters', getAllCharacters);
-app.get('/characters/:id', getCharacterByID);
-app.post('/characters', firebaseAuth, createCharacter);
+app.post('/test', getCharacterByID);
 
 exports.api = functions.https.onRequest(app);

@@ -1,7 +1,15 @@
 import { database } from '../util/admin';
-import * as firebase from 'firebase';
-import validator = require("../util/validators");
+import { validateSignupData, validateLoginData } from '../util/validators';
 
+// It seems like every other deploy I get some sort of issue
+// where components populated by functions.config() are undefined
+// I am attempting to put it her in an attempt to minimize that 
+// behavior
+import * as firebase from 'firebase';
+import { firebaseConfig } from '../util/config';
+firebase.initializeApp(firebaseConfig);
+
+// Works
 const signup = (request: any, response: any) => {
     const newUser = {
         email: request.body.email,
@@ -10,7 +18,7 @@ const signup = (request: any, response: any) => {
         displayName: request.body.displayName
     };
 
-    const { valid, errors } = validator.validateSignupData(newUser);
+    const { valid, errors } = validateSignupData(newUser);
 
     if (!valid) return response.status(400).json(errors);
     let token: string, userId: string;
@@ -63,13 +71,14 @@ const signup = (request: any, response: any) => {
         });
 };
 
+// Works
 const login = (request: any, response: any) => {
     const user = {
         email: request.body.email,
         password: request.body.password
     }
 
-    const { valid, errors } = validator.validateLoginData(user);
+    const { valid, errors } = validateLoginData(user);
 
     if (!valid) return response
         .status(400)

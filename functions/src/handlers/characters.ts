@@ -1,5 +1,6 @@
 import { database } from '../util/admin';
 
+// Works
 const getAllCharacters = (request: any, response: any) => {
     database
         .collection("characters")
@@ -22,16 +23,26 @@ const getAllCharacters = (request: any, response: any) => {
 }
 
 const getCharacterByID = (request: any, response: any) => {
+    const characterID = request.body.characterID;
+    console.log(request.body);
     database
         .collection("characters")
-        .where("id", "==", request.body.characterID)
+        .where("id", "==", characterID)
         .get()
-        .then((data) => {
-            console.log(data);
+        .then((querySnapshot: any) => {
+            const characters: any[] = []
+            querySnapshot.forEach((doc: any) => {
+                characters.push({
+                    characterID: doc.id,
+                    data: doc.data()
+                })
+            })
+            return response.json(characters);
         })
         .catch((err: any) => {
-            console.error(err)
-            response.status(500)
+            response
+                .status(500)
+                .json({ error: err.code })
         })
 }
 
@@ -42,11 +53,33 @@ const createCharacter = (request: any, response: any) => {
     }
     database
         .collection("characters")
-        .doc()
-        .set({ newCharacter })
-        .catch(function (error) {
-            console.error("Error adding document: ", error);
+        .add(newCharacter)
+        .then((docRef) => {
+            return response
+                .status(201)
+                .json({ id: docRef.id });
+        })
+        .catch((error) => {
+            return response
+                .status(500)
+                .json({ error: error.code })
+        });
+}
+const deleteCharacter = (request: any, response: any) => {
+    const characterID = request.body.characterID;
+    database
+        .collection("characters")
+        .doc(characterID)
+        .delete()
+        .then(() => {
+            return response
+                .status(200)
+                .json({ delete: `character with id ${characterID} has been deleted` })
+        }).catch((error) => {
+            return response
+                .status(500)
+                .json({ error: error.code })
         });
 }
 
-export { getAllCharacters, getCharacterByID, createCharacter };
+export { getAllCharacters, getCharacterByID, createCharacter, deleteCharacter };
