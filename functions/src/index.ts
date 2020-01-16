@@ -2,8 +2,6 @@ import * as functions from 'firebase-functions';
 import * as express from 'express'
 
 const app = express();
-require('dotenv').config();
-
 
 // Import Handlers
 const {
@@ -25,7 +23,6 @@ app.route('/characters')
     .post(firebaseAuth, createCharacter)
     .delete(firebaseAuth, deleteCharacter);
 
-
-app.get('/test', getCharacterByID);
+app.post('/test', getCharacterByID);
 
 exports.api = functions.https.onRequest(app);

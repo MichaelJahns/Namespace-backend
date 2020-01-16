@@ -24,7 +24,7 @@ const getAllCharacters = (request: any, response: any) => {
 
 const getCharacterByID = (request: any, response: any) => {
     const characterID = request.body.characterID;
-    console.log(characterID);
+    console.log(request.body);
     database
         .collection("characters")
         .where("id", "==", characterID)
@@ -43,7 +43,6 @@ const getCharacterByID = (request: any, response: any) => {
             response
                 .status(500)
                 .json({ error: err.code })
-
         })
 }
 
