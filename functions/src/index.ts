@@ -14,6 +14,7 @@ const {
     deleteCharacter } = require('./handlers/characters');
 const { firebaseAuth } = require('./util/firebaseAuth');
 
+
 //User Routes
 app.post('/login', login);
 app.post('/signup', signup);
